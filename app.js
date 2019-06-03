@@ -33,6 +33,7 @@ app.get("/", function(req, res) {
 app.listen(3000, function() {
   console.log("listening on port 3000");
 });
+
 function getTokenOnetime() {
   console.log("Start to generate tokens");
   var user_identifier = "ywei@nyis.com";
