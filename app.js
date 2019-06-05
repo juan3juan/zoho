@@ -8,26 +8,28 @@ var app = express();
 app.get("/", function(req, res) {
   ZCRMRestClient.initialize().then(function() {
     //getTokenOnetime();
-    getLeads();
+    getLeads(res)
+
+
   });
 
-  //   var con = mysql.createConnection({
-  //     host: "localhost",
-  //     user: "root",
-  //     password: "123456",
-  //     database: "zohooauth"
-  //   });
-  //   con.connect(function(err) {
-  //     if (err) throw err;
-  //     console.log("Connected!");
-  //     con.query(
-  //       "INSERT INTO zohooauth.oauthtokens VALUES('124','124','124',123);",
-  //       function(err, result) {
-  //         if (err) throw err;
-  //         console.log("Result: " + result);
-  //       }
-  //     );
-  //   });
+    // var con = mysql.createConnection({
+    //   host: "localhost",
+    //   user: "root",
+    //   password: "123456abc",
+    //   database: "zohooauth"
+    // });
+    // con.connect(function(err) {
+    //   if (err) throw err;
+    //   console.log("Connected!");
+    //   con.query(
+    //     "INSERT INTO zohooauth.oauthtokens VALUES('124','124','124',123);",
+    //     function(err, result) {
+    //       if (err) throw err;
+    //       console.log("Result: " + result);
+    //     }
+    //   );
+    // });
 });
 
 app.listen(3000, function() {
@@ -36,9 +38,9 @@ app.listen(3000, function() {
 
 function getTokenOnetime() {
   console.log("Start to generate tokens");
-  var user_identifier = "ywei@nyis.com";
+  var user_identifier = ZCRMRestClient.getUserIdentifier();
   var grant_token =
-    "1000.27d984730cfa3381658ebb861b832a7f.48eded60ec514acb434d23c765e042a7";
+    "1000.9763c87722af17130125ab9332ddd50f.3f2defafba3f3aebe6c881f711ce26ff";
   ZCRMRestClient.generateAuthTokens(user_identifier, grant_token).then(function(
     auth_response
   ) {
@@ -48,7 +50,7 @@ function getTokenOnetime() {
   });
 }
 
-function getLeads() {
+function getLeads(para) {
   var input = {};
   input.module = "Leads";
   var params = {};
@@ -66,5 +68,6 @@ function getLeads() {
       result += "<span>" + name + "</span>";
     }
     result += "</body></html>";
+    para.send(result);
   });
 }
