@@ -50,24 +50,28 @@ function getTokenOnetime() {
   });
 }
 
-function getLeads(para) {
+function getLeads(res) {
   var input = {};
-  input.module = "Leads";
+  input.module = "Contacts";
   var params = {};
   params.page = 0;
-  params.per_page = 5;
+  params.per_page = 100;
   input.params = params;
   ZCRMRestClient.API.MODULES.get(input).then(function(response) {
-    var result = "<html><body><b>Leads</b>";
+    var result = "<html><body><center><b>Leads</b></center><br />";
     var data = response.body;
     data = JSON.parse(data);
     data = data.data;
+    console.log(data);
     for (i in data) {
       var record = data[i];
       var name = record.Full_Name;
-      result += "<span>" + name + "</span>";
+      result += "<span><center>" + name + "</center></span><br />";
     }
     result += "</body></html>";
-    para.send(result);
+    
+    res.set('Content-Type', 'text/html');
+res.send(result);
+    //para.write(result);
   });
 }
