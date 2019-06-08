@@ -2,9 +2,9 @@
 const express = require("express");
 const ZCRMRestClient = require("zcrmsdk");
 const mysql_util = require("zcrmsdk/lib/js/mysql/mysql_util");
-const app = express();
 const getbyModule = require("./getModule");
 const initialzie = require("./Initialize");
+const app = express();
 
 app.get("/", function(req, res) {
   ZCRMRestClient.initialize().then(function() {
