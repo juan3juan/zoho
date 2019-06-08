@@ -1,7 +1,6 @@
+/* eslint-disable no-console */
 var express = require("express");
 var ZCRMRestClient = require("zcrmsdk");
-var mysql = require("mysql");
-var mysql_util = require("zcrmsdk/lib/js/mysql/mysql_util");
 
 var app = express();
 
@@ -23,6 +22,7 @@ app.listen(3000, function() {
   console.log("listening on port 3000");
 });
 
+// eslint-disable-next-line no-unused-vars
 function getTokenOnetime() {
   console.log("Start to generate tokens");
   var user_identifier = ZCRMRestClient.getUserIdentifier();
@@ -50,7 +50,7 @@ function getContacts(res) {
     data = JSON.parse(data);
     data = data.data;
     console.log(data);
-    for (i in data) {
+    for (var i in data) {
       var record = data[i];
       var name = record.Full_Name;
       result += "<span><center>" + name + "</center></span><br />";
@@ -59,6 +59,5 @@ function getContacts(res) {
 
     res.set("Content-Type", "text/html");
     res.send(result);
-    //para.write(result);
   });
 }
