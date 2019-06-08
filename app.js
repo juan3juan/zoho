@@ -5,10 +5,17 @@ var mysql_util = require("zcrmsdk/lib/js/mysql/mysql_util");
 
 var app = express();
 
-app.get("/getContacts", function(req, res) {
+app.get("/", function(req, res) {
   ZCRMRestClient.initialize().then(function() {
     //getTokenOnetime();
     getContacts(res);
+  });
+});
+
+app.get("/getContacts", function(req, res) {
+  ZCRMRestClient.initialize().then(function() {
+    //getTokenOnetime();
+    res.send("This is a test");
   });
 });
 
