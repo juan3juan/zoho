@@ -5,31 +5,11 @@ var mysql_util = require("zcrmsdk/lib/js/mysql/mysql_util");
 
 var app = express();
 
-app.get("/", function(req, res) {
+app.get("/getContacts", function(req, res) {
   ZCRMRestClient.initialize().then(function() {
     //getTokenOnetime();
-    getLeads(res)
-
-
+    getContacts(res);
   });
-
-    // var con = mysql.createConnection({
-    //   host: "localhost",
-    //   user: "root",
-    //   password: "123456abc",
-    //   database: "zohooauth"
-    // });
-    // con.connect(function(err) {
-    //   if (err) throw err;
-    //   console.log("Connected!");
-    //   con.query(
-    //     "INSERT INTO zohooauth.oauthtokens VALUES('124','124','124',123);",
-    //     function(err, result) {
-    //       if (err) throw err;
-    //       console.log("Result: " + result);
-    //     }
-    //   );
-    // });
 });
 
 app.listen(3000, function() {
@@ -50,7 +30,7 @@ function getTokenOnetime() {
   });
 }
 
-function getLeads(res) {
+function getContacts(res) {
   var input = {};
   input.module = "Contacts";
   var params = {};
@@ -69,9 +49,9 @@ function getLeads(res) {
       result += "<span><center>" + name + "</center></span><br />";
     }
     result += "</body></html>";
-    
-    res.set('Content-Type', 'text/html');
-res.send(result);
+
+    res.set("Content-Type", "text/html");
+    res.send(result);
     //para.write(result);
   });
 }
