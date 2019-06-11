@@ -4,11 +4,13 @@ module.exports = {
     <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     </head>
+    <body>
     <div class="container">
     <div class="jumbotron">
       <h1><center>${header}</center></h1> 
     </div> 
     <table class="table table-dark">
+    <thead class="thead-dark">
     <tr>
     <th>Name</th>
     <th>Gender</th> 
