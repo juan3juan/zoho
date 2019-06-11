@@ -34,6 +34,20 @@ app.get("/getLeads", function(req, res) {
   });
 });
 
+app.get("/getByPhone", function(req, res) {
+  ZCRMRestClient.initialize().then(function() {
+    let input = {};
+    input.module = "Leads";
+    let params = {};
+    params.phone = req.query.phone;
+    params.page = 0;
+    params.per_page = 100;
+    input.params = params;
+
+    getbyModule.search(input, res);
+  });
+});
+
 app.listen(3000, () => {
   console.log("listening on port 3000");
 });

@@ -7,5 +7,14 @@ module.exports = {
     let result = wrap.wrapresult(input.module, data);
     res.set("Content-Type", "text/html");
     res.send(result);
+  },
+
+  search: function(input, res) {
+    ZCRMRestClient.API.MODULES.search(input).then(function(response) {
+      let data = JSON.parse(response.body).data;
+      let result = wrap.wrapresult(input.module, data);
+      res.set("Content-Type", "text/html");
+      res.send(result);
+    });
   }
 };

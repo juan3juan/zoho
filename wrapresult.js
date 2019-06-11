@@ -1,7 +1,14 @@
 module.exports = {
   wrapresult: function(header, data) {
-    let result = `<html><body><center><b>${header}</b></center><br/>
-    <table style="width:100%">
+    let result = `<html>
+    <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    </head>
+    <div class="container">
+    <div class="jumbotron">
+      <h1><center>${header}</center></h1> 
+    </div> 
+    <table class="table table-dark">
     <tr>
     <th>Name</th>
     <th>Gender</th> 
@@ -20,7 +27,11 @@ module.exports = {
       <td align="left"> ${Description}</td>
       <tr />`;
     }
-    result += "</tr></tabel></body></html>";
+    result += `</tr>
+    </tabel>
+    </div>
+    </body>
+    </html>`;
     return result;
   }
 };
