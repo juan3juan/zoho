@@ -5,7 +5,7 @@ const mysql_util = require("zcrmsdk/lib/js/mysql/mysql_util");
 const getbyModule = require("./getModule");
 const initialzie = require("./Initialize");
 const getInput = require("./getInput");
-var bodyParser = require('body-parser');
+var bodyParser = require("body-parser");
 var urlencodedParser = bodyParser.urlencoded({ extended: true });
 
 const app = express();
@@ -53,10 +53,9 @@ app.post("/getByPhone", urlencodedParser, function(req, res) {
   });
 });
 
-app.get('/search', function (req, res) {
-  getInput.getInput(req, res);
+app.get("/search", function(req, res) {
+  getInput.getInputTest(req, res);
 });
- 
 
 app.listen(3000, () => {
   console.log("listening on port 3000");
