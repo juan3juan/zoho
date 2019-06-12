@@ -54,8 +54,41 @@ app.post("/getByPhone", urlencodedParser, function(req, res) {
 });
 
 app.get("/search", function(req, res) {
-  getInput.getInputTest(req, res);
+  getInput.getInput(req, res);
 });
+
+// app.get("/test", function(req, res) {
+//   ZCRMRestClient.initialize().then(function(){
+//     var input = {};
+
+//     // Filestream to read the file to be uploaded
+//     var fs = require('fs');
+  
+//     // Specify the file-path of the file to be uploaded
+//     var readStream = fs.createReadStream('/Users/yuruiwei/Downloads/NYIS_INC_CSR.xlsx');
+  
+//     input.x_file_content = readStream;
+//     input.id='3890818000001319236';		// id: record-id to which the file is to be associated
+//     input.module = 'Leads';
+  
+//     ZCRMRestClient.API.ATTACHMENTS.uploadFile(input).then(function(response) {
+  
+//       // Response of the API call is returned in the 'body'
+  
+//       // The file upload status is obtained from the first JSON object of the JSON Array corresponding
+//       // to the 'data' key of the response
+  
+//         response = JSON.parse(response.body);
+//         response = response.data[0];
+  
+//         console.log(response);
+  
+//         // The attachment id of the uploaded file can be obtained from response.details.id
+//         console.log(response.details.id);
+//     });
+//   });
+//   res.send("success");
+// });
 
 app.listen(3000, () => {
   console.log("listening on port 3000");
