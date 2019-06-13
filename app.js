@@ -43,7 +43,7 @@ app.post("/getByPhone", urlencodedParser, function(req, res) {
   ZCRMRestClient.initialize().then(function() {
     let input = {};
     //input.module = req.body.module;
-    let modules = ["Leads", "Contacts"];
+    let modules = ["Contacts"];//, "Leads"
     let params = {};
     params.phone = req.body.phone;
     params.page = 0;
@@ -52,13 +52,21 @@ app.post("/getByPhone", urlencodedParser, function(req, res) {
     console.log(req.body.module);
     console.log(req.body.phone);
     let data = [];
-    for(let i in modules){
+    for(i=0; i<modules.length; i++){
       console.log(modules[i]);
       input.module = modules[i];
       //data = data.concat(getbyModule.search(input, res));
-      Array.prototype.push.apply(data, getbyModule.search(input, res));
+      let temp = getbyModule.search(input, res);
+      Array.prototype.push.apply(data, temp);
+      console.log("inside for loop ");
+      console.log(temp);
+      console.log(typeof temp);
+      for(let j=0; j<temp.length; j++){
+        console.log("temp ");
+        console.log(temp[i]);
+      }
     }
-    console.log('data~ ');
+    console.log('out of for~ ');
     console.log(data);
     //data = JSON.parse(response.body).data;
     // let arr1 = [{name: "lang", value: "English"},{name: "age", value: "18"}];
