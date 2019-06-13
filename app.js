@@ -6,6 +6,7 @@ const getbyModule = require("./getModule");
 const initialzie = require("./Initialize");
 const getInput = require("./getInput");
 var bodyParser = require("body-parser");
+const wrap = require("./wrapresult");
 var urlencodedParser = bodyParser.urlencoded({ extended: true });
 
 const app = express();
@@ -41,7 +42,8 @@ app.get("/getLeads", function(req, res) {
 app.post("/getByPhone", urlencodedParser, function(req, res) {
   ZCRMRestClient.initialize().then(function() {
     let input = {};
-    input.module = req.body.module;
+    //input.module = req.body.module;
+    let modules = ["Leads", "Contacts"];
     let params = {};
     params.phone = req.body.phone;
     params.page = 0;
@@ -49,7 +51,22 @@ app.post("/getByPhone", urlencodedParser, function(req, res) {
     input.params = params;
     console.log(req.body.module);
     console.log(req.body.phone);
-    getbyModule.search(input, res);
+    let data = [];
+    for(let i in modules){
+      console.log(modules[i]);
+      input.module = modules[i];
+      //data = data.concat(getbyModule.search(input, res));
+      Array.prototype.push.apply(data, getbyModule.search(input, res));
+    }
+    console.log('data~ ');
+    console.log(data);
+    //data = JSON.parse(response.body).data;
+    // let arr1 = [{name: "lang", value: "English"},{name: "age", value: "18"}];
+    // let arr2 = [{name : "childs", value: '5'}, {name: "lang", value: "German"}];
+    // Array.prototype.push.apply(arr1, arr2);
+    let result = wrap.wrapresult(input.module, data);
+    res.set("Content-Type", "text/html");
+    res.send(result);
   });
 });
 

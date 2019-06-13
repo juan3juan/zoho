@@ -35,5 +35,9 @@ module.exports = {
     </body>
     </html>`;
     return result;
+  },
+
+  wrapresultBundle: function(header, data){
+    
   }
 };
