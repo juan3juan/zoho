@@ -12,6 +12,7 @@ module.exports = {
     <table class="table table-dark">
     <thead class="thead-dark">
     <tr>
+    <th>Module</th>
     <th>Name</th>
     <th>Gender</th> 
     <th>Language</th>
@@ -20,8 +21,13 @@ module.exports = {
     </tr>`;
     for (let i in data) {
       let record = data[i];
-      const { Full_Name, Gender, Language, Phone, Description } = record;
+
+      let { Module, Full_Name, Gender, Language, Phone, Description } = record;
+      if (typeof Module == "undefined") {
+        Module = header;
+      }
       result += `<tr>
+      <td align="middle"> ${Module}</td>
       <td align="middle"> ${Full_Name}</td>
       <td align="middle"> ${Gender}</td>
       <td align="middle"> ${Language}</td>
@@ -37,7 +43,5 @@ module.exports = {
     return result;
   },
 
-  wrapresultBundle: function(header, data){
-
-  }
+  wrapresultBundle: function(header, data) {}
 };

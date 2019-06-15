@@ -43,7 +43,7 @@ app.post("/getByPhone", urlencodedParser, function(req, res) {
   ZCRMRestClient.initialize().then(function() {
     let input = {};
     //input.module = req.body.module;
-    let modules = ["Contacts"];//, "Leads"
+    let modules = ["Contacts", "Leads"]; //
     let params = {};
     params.phone = req.body.phone;
     params.page = 0;
@@ -51,30 +51,26 @@ app.post("/getByPhone", urlencodedParser, function(req, res) {
     input.params = params;
     console.log(req.body.module);
     console.log(req.body.phone);
-    let data = [];
-    for(i=0; i<modules.length; i++){
-      console.log(modules[i]);
-      input.module = modules[i];
-      //data = data.concat(getbyModule.search(input, res));
-      let temp = getbyModule.search(input, res);
-      Array.prototype.push.apply(data, temp);
-      console.log("inside for loop ");
-      console.log(temp);
-      console.log(typeof temp);
-      for(let j=0; j<temp.length; j++){
-        console.log("temp ");
-        console.log(temp[i]);
-      }
-    }
-    console.log('out of for~ ');
-    console.log(data);
-    //data = JSON.parse(response.body).data;
-    // let arr1 = [{name: "lang", value: "English"},{name: "age", value: "18"}];
-    // let arr2 = [{name : "childs", value: '5'}, {name: "lang", value: "German"}];
-    // Array.prototype.push.apply(arr1, arr2);
-    let result = wrap.wrapresult(input.module, data);
-    res.set("Content-Type", "text/html");
-    res.send(result);
+    //let data = [];
+    // for (let i = 0; i < modules.length; i++) {
+    //   console.log(modules[i]);
+    //input.module = modules[i];
+    //data = data.concat(getbyModule.search(input, res));
+    //let response = getbyModule.search(input, res);
+    getbyModule.search(input, modules, res);
+    // Array.prototype.push.apply(data, response);
+    // console.log("inside for loop ");
+    // console.log(response);
+
+    // for (let j = 0; j < temp.length; j++) {
+    //   console.log("temp ");
+    //   console.log(temp[i]);
+    // }
+    //}
+
+    //let result = wrap.wrapresult(input.module, data);
+    // res.set("Content-Type", "text/html");
+    // res.send(result);
   });
 });
 
@@ -88,26 +84,26 @@ app.get("/search", function(req, res) {
 
 //     // Filestream to read the file to be uploaded
 //     var fs = require('fs');
-  
+
 //     // Specify the file-path of the file to be uploaded
 //     var readStream = fs.createReadStream('/Users/yuruiwei/Downloads/NYIS_INC_CSR.xlsx');
-  
+
 //     input.x_file_content = readStream;
 //     input.id='3890818000001319236';		// id: record-id to which the file is to be associated
 //     input.module = 'Leads';
-  
+
 //     ZCRMRestClient.API.ATTACHMENTS.uploadFile(input).then(function(response) {
-  
+
 //       // Response of the API call is returned in the 'body'
-  
+
 //       // The file upload status is obtained from the first JSON object of the JSON Array corresponding
 //       // to the 'data' key of the response
-  
+
 //         response = JSON.parse(response.body);
 //         response = response.data[0];
-  
+
 //         console.log(response);
-  
+
 //         // The attachment id of the uploaded file can be obtained from response.details.id
 //         console.log(response.details.id);
 //     });

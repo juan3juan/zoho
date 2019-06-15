@@ -9,18 +9,16 @@ module.exports = {
     res.send(result);
   },
 
-  search: function(input, res) {
+  search: async function(input, modules, res) {
     var extract = [];
-    ZCRMRestClient.API.MODULES.search(input).then(function(response){
-      try{
+    for (let i = 0; i < modules.length; i++) {
+      input.module = modules[i];
+      let response = await ZCRMRestClient.API.MODULES.search(input);
+      try {
         let data = JSON.parse(response.body).data;
-        // let result = wrap.wrapresult(input.module, data);
-        // res.set("Content-Type", "text/html");
-        // res.send(result);
-        // console.log("data1~");
-        // console.log(data);
-        for(let i in data){
-          let record = {};
+
+        for (let i in data) {
+          var record = {};
           record.Module = input.module;
           record.Full_Name = data[i].Full_Name;
           record.Gender = data[i].Gender;
@@ -29,13 +27,12 @@ module.exports = {
           record.Description = data[i].Description;
           extract.push(record);
         }
-      } catch(error) {
-        console.error(error);
+      } catch (error) {
         res.send("No such Info!");
       }
-    });
-    console.log("data1~");
-    console.log(typeof extract);
-    return extract;
+    }
+    let result = wrap.wrapresult("Modules", extract);
+    res.set("Content-Type", "text/html");
+    res.send(result);
   }
 };
